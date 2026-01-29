@@ -1,4 +1,4 @@
-# Minds - Healthcare Platform
+    # Minds - Healthcare Platform
 
 A comprehensive healthcare platform built with Next.js, featuring AI-powered health assistance, prescription reading, medical scan analysis, and telemedicine capabilities.
 

@@ -6,17 +6,9 @@ export async function GET(request) {
   try {
     await dbConnect();
     
-    const { searchParams } = new URL(request.url);
-    const doctorId = searchParams.get('doctorId');
-    
-    let query = { status: "pending" };
-    
-    // Exclude requests already passed by this doctor
-    if (doctorId) {
-      query.passedBy = { $not: { $elemMatch: { doctorId: doctorId } } };
-    }
-    
-    const requests = await RoutineDoctorRequest.find(query).sort({ createdAt: -1 });
+    const requests = await RoutineDoctorRequest.find({ status: "pending" })
+      .sort({ timestamp: 1 })
+      .limit(10);
 
     return NextResponse.json({
       success: true,

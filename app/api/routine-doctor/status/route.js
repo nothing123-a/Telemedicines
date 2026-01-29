@@ -7,39 +7,33 @@ export async function GET(request) {
     await dbConnect();
     
     const { searchParams } = new URL(request.url);
-    const userId = searchParams.get("userId");
-    const requestId = searchParams.get("requestId");
+    const userId = searchParams.get('userId');
     
-    if (!userId && !requestId) {
+    if (!userId) {
       return NextResponse.json(
-        { error: "User ID or Request ID is required" },
+        { error: "User ID required" },
         { status: 400 }
       );
     }
 
-    let latestRequest;
-    if (requestId) {
-      latestRequest = await RoutineDoctorRequest.findById(requestId);
-    } else {
-      latestRequest = await RoutineDoctorRequest.findOne({ 
-        userId,
-        status: { $in: ["pending", "accepted"] }
-      }).sort({ createdAt: -1 });
-    }
+    const latestRequest = await RoutineDoctorRequest.findOne({ 
+      userId,
+      status: { $in: ["pending", "accepted"] }
+    }).sort({ createdAt: -1 });
 
     if (!latestRequest) {
       return NextResponse.json({
-        status: "no_request",
-        message: "No active request found"
+        status: "not_found",
+        message: "No pending requests found"
       });
     }
 
     return NextResponse.json({
       status: latestRequest.status,
-      connectionType: latestRequest.connectionType,
       roomId: latestRequest.roomId,
-      doctorId: latestRequest.doctorId,
-      requestId: latestRequest._id
+      connectionType: latestRequest.connectionType,
+      doctorName: latestRequest.doctorName,
+      acceptedAt: latestRequest.acceptedAt
     });
 
   } catch (error) {
