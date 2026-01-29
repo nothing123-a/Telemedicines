@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import RoutineDoctorRequest from "@/models/RoutineDoctorRequest";
 import Room from "@/models/Room";
-import { v4 as uuidv4 } from "uuid";
 
 export async function POST(request) {
   try {
@@ -33,7 +32,7 @@ export async function POST(request) {
       );
     }
 
-    const roomId = uuidv4();
+    const roomId = `room-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     
     const room = new Room({
       roomId,
@@ -52,14 +51,6 @@ export async function POST(request) {
     routineRequest.acceptedAt = new Date();
     
     await routineRequest.save();
-    
-    console.log("Request accepted and saved:", {
-      requestId: routineRequest._id,
-      userId: routineRequest.userId,
-      status: routineRequest.status,
-      roomId: routineRequest.roomId,
-      connectionType: routineRequest.connectionType
-    });
 
     return NextResponse.json({
       success: true,

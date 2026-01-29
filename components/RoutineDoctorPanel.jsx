@@ -43,7 +43,7 @@ export default function RoutineDoctorPanel({ doctorId, doctorName, inline = fals
 
       if (response.ok) {
         const data = await response.json();
-        window.location.href = `/${data.connectionType}-room/${data.roomId}`;
+        window.location.href = `/video-room/${data.roomId}`;
       }
     } catch (error) {
       console.error("Error accepting request:", error);

@@ -29,7 +29,7 @@ export default function WaitingPage() {
           console.log("Request accepted, redirecting to:", `/${data.connectionType}-room/${data.roomId}`);
           setStatus("accepted");
           setTimeout(() => {
-            router.push(`/${data.connectionType}-room/${data.roomId}`);
+            router.push(`/video-room/${data.roomId}`);
           }, 2000);
         }
       } catch (error) {
