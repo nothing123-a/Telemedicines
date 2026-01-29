@@ -8,12 +8,19 @@ export async function GET(req, { params }) {
     await dbConnect();
     const { roomId } = await params;
 
+    console.log('GET /api/rooms/[roomId]/messages for room:', roomId);
+
     const room = await Room.findOne({ roomId });
     if (!room) {
+      console.log('Room not found:', roomId);
       return NextResponse.json({ error: "Room not found" }, { status: 404 });
     }
 
+    console.log('Room found:', room);
+
     const messages = await Message.find({ roomId }).sort({ timestamp: 1 });
+    console.log('Messages found:', messages.length);
+    
     return NextResponse.json({ messages });
   } catch (error) {
     console.error("Get messages error:", error);
@@ -27,10 +34,20 @@ export async function POST(req, { params }) {
     const { roomId } = await params;
     const { senderId, senderType, message } = await req.json();
 
+    console.log('POST /api/rooms/[roomId]/messages:', {
+      roomId,
+      senderId,
+      senderType,
+      message
+    });
+
     const room = await Room.findOne({ roomId });
     if (!room) {
+      console.log('Room not found:', roomId);
       return NextResponse.json({ error: "Room not found" }, { status: 404 });
     }
+
+    console.log('Room found:', room);
 
     const newMessage = await Message.create({
       roomId,
@@ -39,8 +56,11 @@ export async function POST(req, { params }) {
       message,
     });
 
+    console.log('Message created:', newMessage);
+
     // Emit message to room participants
     if (global._io) {
+      console.log('Emitting message to room:', roomId);
       global._io.to(roomId).emit("new-message", {
         messageId: newMessage._id,
         senderId,
@@ -48,6 +68,8 @@ export async function POST(req, { params }) {
         message,
         timestamp: newMessage.timestamp,
       });
+    } else {
+      console.log('global._io not available');
     }
 
     return NextResponse.json({ success: true, message: newMessage });

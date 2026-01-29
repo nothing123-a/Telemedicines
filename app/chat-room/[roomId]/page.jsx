@@ -41,6 +41,7 @@ export default function ChatRoom() {
 
     // Listen for new messages
     socketInstance.on("new-message", (message) => {
+      console.log('Received new message via socket:', message);
       setMessages(prev => [...prev, message]);
     });
 
@@ -48,8 +49,10 @@ export default function ChatRoom() {
     socketInstance.on("user-disconnected", () => {
       console.log('Other user disconnected from chat');
       if (!session.user.isDoctor) {
-        // Show feedback modal for users
-        setShowFeedback(true);
+        // Redirect to dashboard for users
+        setTimeout(() => {
+          window.location.href = '/dashboard';
+        }, 2000);
       } else {
         setTimeout(() => {
           window.location.href = '/doctor';
@@ -79,9 +82,11 @@ export default function ChatRoom() {
   }, [messages]);
 
   const fetchMessages = async () => {
+    console.log('Fetching messages for room:', roomId);
     try {
       const response = await fetch(`/api/rooms/${roomId}/messages`);
       const data = await response.json();
+      console.log('Fetched messages:', data);
       if (data.messages) {
         setMessages(data.messages);
       }
@@ -149,6 +154,13 @@ export default function ChatRoom() {
     e.preventDefault();
     if (!newMessage.trim() || !session?.user?.id) return;
 
+    console.log('Sending message:', {
+      roomId,
+      senderId: session.user.id,
+      senderType: session.user.isDoctor ? "doctor" : "user",
+      message: newMessage.trim()
+    });
+
     try {
       const response = await fetch(`/api/rooms/${roomId}/messages`, {
         method: "POST",
@@ -162,8 +174,13 @@ export default function ChatRoom() {
         }),
       });
 
+      const data = await response.json();
+      console.log('Message API response:', data);
+
       if (response.ok) {
         setNewMessage("");
+      } else {
+        console.error('Failed to send message:', data);
       }
     } catch (error) {
       console.error("Failed to send message:", error);
@@ -182,7 +199,7 @@ export default function ChatRoom() {
     if (session.user.isDoctor) {
       window.location.href = '/doctor';
     } else {
-      setShowFeedback(true);
+      window.location.href = '/dashboard';
     }
   };
 

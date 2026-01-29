@@ -5,7 +5,8 @@ export default function DoctorConnectionModal({
   isOpen, 
   onClose, 
   doctorName, 
-  requestId 
+  requestId,
+  preSelectedType = null 
 }) {
   const [isConnecting, setIsConnecting] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -19,7 +20,7 @@ export default function DoctorConnectionModal({
     }
   }, [isOpen]);
 
-  const handleConnection = async (type) => {
+  const handleConnection = async (type = preSelectedType) => {
     setIsConnecting(true);
     console.log('Sending connection request:', { requestId, connectionType: type });
     try {
@@ -98,29 +99,52 @@ export default function DoctorConnectionModal({
 
           {/* Content */}
           <div className="p-6">
-            <p className="text-gray-600 text-center mb-6">
-              Choose how you'd like to connect with your doctor:
-            </p>
+            {preSelectedType ? (
+              <>
+                <p className="text-gray-600 text-center mb-6">
+                  Ready to start your {preSelectedType === 'chat' ? 'chat consultation' : 'video call'} with Dr. {doctorName}?
+                </p>
+                <div className="space-y-3">
+                  <button
+                    onClick={() => handleConnection(preSelectedType)}
+                    disabled={isConnecting}
+                    className={`w-full font-semibold py-4 px-6 rounded-xl transition-all duration-200 disabled:opacity-50 transform hover:scale-105 shadow-lg flex items-center justify-center gap-3 ${
+                      preSelectedType === 'chat' 
+                        ? 'bg-blue-500 hover:bg-blue-600 text-white'
+                        : 'bg-green-500 hover:bg-green-600 text-white'
+                    }`}
+                  >
+                    <span className="text-xl">{preSelectedType === 'chat' ? '💬' : '📹'}</span>
+                    Start {preSelectedType === 'chat' ? 'Chat Session' : 'Video Call'}
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="text-gray-600 text-center mb-6">
+                  Choose how you'd like to connect with your doctor:
+                </p>
+                <div className="space-y-3">
+                  <button
+                    onClick={() => handleConnection("chat")}
+                    disabled={isConnecting}
+                    className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 disabled:opacity-50 transform hover:scale-105 shadow-lg flex items-center justify-center gap-3"
+                  >
+                    <span className="text-xl">💬</span>
+                    Start Chat Session
+                  </button>
 
-            <div className="space-y-3">
-              <button
-                onClick={() => handleConnection("chat")}
-                disabled={isConnecting}
-                className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 disabled:opacity-50 transform hover:scale-105 shadow-lg flex items-center justify-center gap-3"
-              >
-                <span className="text-xl">💬</span>
-                Start Chat Session
-              </button>
-
-              <button
-                onClick={() => handleConnection("video")}
-                disabled={isConnecting}
-                className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 disabled:opacity-50 transform hover:scale-105 shadow-lg flex items-center justify-center gap-3"
-              >
-                <span className="text-xl">📹</span>
-                Start Video Call
-              </button>
-            </div>
+                  <button
+                    onClick={() => handleConnection("video")}
+                    disabled={isConnecting}
+                    className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 disabled:opacity-50 transform hover:scale-105 shadow-lg flex items-center justify-center gap-3"
+                  >
+                    <span className="text-xl">📹</span>
+                    Start Video Call
+                  </button>
+                </div>
+              </>
+            )}
 
             {isConnecting && (
               <div className="text-center mt-6">

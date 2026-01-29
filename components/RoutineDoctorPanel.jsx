@@ -43,7 +43,9 @@ export default function RoutineDoctorPanel({ doctorId, doctorName, inline = fals
 
       if (response.ok) {
         const data = await response.json();
-        window.location.href = `/video-room/${data.roomId}`;
+        // Redirect based on connection type
+        const roomType = data.connectionType === 'chat' ? 'chat' : 'video';
+        window.location.href = `/${roomType}-room/${data.roomId}`;
       }
     } catch (error) {
       console.error("Error accepting request:", error);

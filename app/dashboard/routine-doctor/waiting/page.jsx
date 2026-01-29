@@ -29,7 +29,9 @@ export default function WaitingPage() {
           console.log("Request accepted, redirecting to:", `/${data.connectionType}-room/${data.roomId}`);
           setStatus("accepted");
           setTimeout(() => {
-            router.push(`/video-room/${data.roomId}`);
+            // Redirect based on connection type
+            const roomType = data.connectionType === 'chat' ? 'chat' : 'video';
+            router.push(`/${roomType}-room/${data.roomId}`);
           }, 2000);
         }
       } catch (error) {

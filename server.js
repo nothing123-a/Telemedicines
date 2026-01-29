@@ -29,6 +29,9 @@ app.prepare().then(() => {
     }
   });
 
+  // Make io globally available for API routes
+  global._io = io;
+
   io.on("connection", (socket) => {
     console.log("Socket connected:", socket.id);
 
