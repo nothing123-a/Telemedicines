@@ -1,0 +1,18 @@
+{
+  "id": 1757182165595,
+  "timestamp": "2025-09-06T18:09:24.908Z",
+  "location": null,
+  "locationText": "",
+  "patientProfile": {
+    "name": "Darshan",
+    "age": "19",
+    "bloodType": "Unknown",
+    "allergies": "none",
+    "medications": "nothing",
+    "medicalConditions": "clear",
+    "emergencyContact": "9405442242"
+  },
+  "emergencyType": "SOS_TRIGGERED",
+  "createdAt": "2025-09-06T18:09:25.595Z",
+  "status": "active"
+}

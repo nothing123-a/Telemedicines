@@ -1,0 +1,18 @@
+{
+  "id": 1757181910489,
+  "timestamp": "2025-09-06T18:05:10.016Z",
+  "location": null,
+  "locationText": "",
+  "patientProfile": {
+    "name": "Unknown",
+    "age": "Unknown",
+    "bloodType": "Unknown",
+    "allergies": "None",
+    "medications": "None",
+    "medicalConditions": "None",
+    "emergencyContact": "None"
+  },
+  "emergencyType": "SOS_TRIGGERED",
+  "createdAt": "2025-09-06T18:05:10.489Z",
+  "status": "active"
+}

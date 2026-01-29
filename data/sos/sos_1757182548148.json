@@ -1,0 +1,33 @@
+{
+  "id": 1757182548148,
+  "timestamp": "2025-09-06T18:15:47.802Z",
+  "location": {
+    "lat": 18.670358787901844,
+    "lng": 73.89070956692949
+  },
+  "locationText": "120/74, Indrayani Nagar, Alandi, Maharashtra 412105, India",
+  "contacts": [
+    {
+      "name": "Ambulance",
+      "phone": "108",
+      "type": "urgent"
+    },
+    {
+      "name": "Police",
+      "phone": "100",
+      "type": "urgent"
+    },
+    {
+      "name": "Fire Department",
+      "phone": "101",
+      "type": "urgent"
+    },
+    {
+      "name": "Mummy",
+      "phone": "9405442242",
+      "type": "personal"
+    }
+  ],
+  "createdAt": "2025-09-06T18:15:48.148Z",
+  "status": "active"
+}

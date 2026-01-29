@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Dark mode styles for all pages */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+/* Universal dark mode with JavaScript integration */
+.dark,
+.dark *,
+.dark body,
+.dark html {
+  transition: all 0.3s ease !important;
+}
+
+/* Sticky navbar */
+.sticky-navbar {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 50 !important;
+}
+
+/* Dark mode JavaScript hooks */
+.js-dark-bg {
+  background-color: #1f2937 !important;
+}
+
+.js-dark-text {
+  color: #f9fafb !important;
+}
+
+.js-dark-border {
+  border-color: #374151 !important;
+}
+
+/* Comprehensive dark mode overrides */
+.dark,
+.dark body,
+.dark html {
+  background-color: #111827 !important;
+  color: #f9fafb !important;
+}
+
+.dark *[class*="bg-white"],
+.dark *[class*="bg-gray-50"],
+.dark *[class*="bg-gray-100"],
+.dark *[class*="bg-emerald-50"],
+.dark *[class*="bg-blue-50"],
+.dark *[class*="bg-green-50"],
+.dark *[class*="bg-pink-50"],
+.dark *[class*="bg-purple-50"],
+.dark *[class*="bg-yellow-50"],
+.dark *[class*="bg-orange-50"],
+.dark *[class*="bg-red-50"],
+.dark *[class*="bg-teal-50"],
+.dark *[class*="bg-cyan-50"],
+.dark *[class*="bg-indigo-50"],
+.dark *[class*="bg-red-100"],
+.dark *[class*="bg-orange-100"],
+.dark *[class*="bg-indigo-100"] {
+  background-color: #1f2937 !important;
+}
+
+.dark *[class*="text-black"],
+.dark *[class*="text-gray-900"],
+.dark *[class*="text-gray-800"],
+.dark *[class*="text-emerald-800"],
+.dark *[class*="text-blue-800"],
+.dark *[class*="text-green-800"],
+.dark *[class*="text-pink-800"],
+.dark *[class*="text-purple-800"],
+.dark *[class*="text-yellow-800"],
+.dark *[class*="text-orange-800"],
+.dark *[class*="text-red-800"],
+.dark *[class*="text-red-600"],
+.dark *[class*="text-red-700"] {
+  color: #f9fafb !important;
+}
+
+.dark *[class*="text-gray-700"],
+.dark *[class*="text-gray-600"] {
+  color: #d1d5db !important;
+}
+
+.dark *[class*="border-gray"],
+.dark *[class*="border-black"],
+.dark *[class*="border-pink"],
+.dark *[class*="border-emerald"],
+.dark *[class*="border-blue"],
+.dark *[class*="border-red"] {
+  border-color: #374151 !important;
+}
+
+.dark *[class*="bg-gradient-to"] {
+  background: linear-gradient(135deg, #111827, #1f2937) !important;
+}
+
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: #1f2937 !important;
+  color: #f9fafb !important;
+  border-color: #374151 !important;
+}
+
+.dark *[class*="min-h-screen"] {
+  background-color: #111827 !important;
+}
+
+.dark div,
+.dark section,
+.dark article,
+.dark main,
+.dark footer,
+.dark nav,
+.dark header {
+  background-color: inherit !important;
+  color: inherit !important;
+}
+
+/* Chat scroll fix */
+.chat-container {
+  scroll-behavior: smooth;
+}
+
+.chat-messages {
+  overflow-anchor: none;
+}
+
+/* Light theme restoration */
+body:not(.dark) {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+}
+
+html:not(.dark) {
+  background-color: #ffffff !important;
+}
+
+/* Reset dark overrides when not in dark mode */
+:not(.dark) *[style*="#1f2937"],
+:not(.dark) *[style*="#111827"],
+:not(.dark) *[style*="#f9fafb"],
+:not(.dark) *[style*="#374151"] {
+  background-color: unset !important;
+  color: unset !important;
+  border-color: unset !important;
+}

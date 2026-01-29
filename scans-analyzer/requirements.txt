@@ -1,0 +1,10 @@
+flask
+flask-cors
+opencv-python
+numpy
+Pillow
+transformers
+torch
+torchvision
+pytesseract
+requests

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hey Genie - Wake Word Detection</title>
+    <script src="https://unpkg.com/@picovoice/porcupine-web/dist/iife/index.js"></script>
+    <script src="https://unpkg.com/@picovoice/web-voice-processor/dist/iife/index.js"></script>
+</head>
+<body>
+    <div style="text-align: center; padding: 50px;">
+        <h1>🧞‍♂️ Hey Genie Wake Word Detection</h1>
+        <button id="startBtn">Start Listening</button>
+        <button id="stopBtn" disabled>Stop Listening</button>
+        <div id="status">Click "Start Listening" to begin</div>
+        <div id="detections"></div>
+    </div>
+
+    <script>
+        let porcupine = null;
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const status = document.getElementById('status');
+        const detections = document.getElementById('detections');
+
+        // Replace with your actual access key from Picovoice Console
+        const ACCESS_KEY = "YOUR_ACCESS_KEY_HERE";
+
+        function keywordDetectionCallback(detection) {
+            console.log(`Detected: ${detection.label}`);
+            detections.innerHTML += `<p>🎉 Detected "${detection.label}" at ${new Date().toLocaleTimeString()}</p>`;
+            
+            // Here you can trigger your AI assistant
+            if (detection.label.toLowerCase().includes('genie')) {
+                triggerAIAssistant();
+            }
+        }
+
+        function triggerAIAssistant() {
+            // This is where you'd integrate with your AI backend
+            console.log("🧞‍♂️ Hey Genie activated! Starting AI assistant...");
+            status.innerHTML = "🧞‍♂️ Genie is listening...";
+            
+            // Example: Start recording user's voice and send to your AI
+            // startVoiceRecording();
+        }
+
+        async function startPorcupine() {
+            try {
+                status.innerHTML = "Loading Porcupine...";
+                
+                // For built-in keywords (testing)
+                porcupine = await PorcupineWeb.PorcupineWorker.create(
+                    ACCESS_KEY,
+                    [PorcupineWeb.BuiltInKeyword.Picovoice], // Use this for testing
+                    keywordDetectionCallback
+                );
+
+                // For custom "Hey Genie" keyword (after training)
+                // porcupine = await PorcupineWeb.PorcupineWorker.create(
+                //     ACCESS_KEY,
+                //     {publicPath: "/path/to/hey_genie.ppn", customWritePath: "hey_genie"},
+                //     keywordDetectionCallback
+                // );
+
+                await window.WebVoiceProcessor.WebVoiceProcessor.subscribe(porcupine);
+                
+                status.innerHTML = "🎤 Listening for wake word...";
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+                
+            } catch (error) {
+                console.error("Error starting Porcupine:", error);
+                status.innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        async function stopPorcupine() {
+            if (porcupine) {
+                await window.WebVoiceProcessor.WebVoiceProcessor.unsubscribe(porcupine);
+                porcupine.release();
+                porcupine.terminate();
+                porcupine = null;
+            }
+            
+            status.innerHTML = "Stopped listening";
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+        }
+
+        startBtn.addEventListener('click', startPorcupine);
+        stopBtn.addEventListener('click', stopPorcupine);
+    </script>
+</body>
+</html>
