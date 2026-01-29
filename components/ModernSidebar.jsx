@@ -143,13 +143,13 @@ export default function ModernSidebar() {
       href: "/dashboard/health-news", 
       label: "Health News", 
       icon: Newspaper,
-      description: "Nabha Region Healthcare Updates"
+      description: "India Healthcare Updates"
     },
     { 
       href: "/dashboard/government-schemes", 
       label: "Government Schemes", 
       icon: Building,
-      description: "Punjab Healthcare Programs"
+      description: "Maharashtra Healthcare Programs"
     }
   ];
 

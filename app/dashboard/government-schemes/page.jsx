@@ -10,14 +10,14 @@ export default function GovernmentSchemes() {
   const [selectedCategory, setSelectedCategory] = useState('insurance');
 
   const categories = [
-    { id: 'insurance', name: 'Punjab Health Insurance & Financial Protection' },
-    { id: 'maternal', name: 'Punjab Maternal & Child Health' },
-    { id: 'disease', name: 'Punjab Disease Control Programs' },
-    { id: 'primary', name: 'Punjab Primary & Preventive Healthcare' },
-    { id: 'nutrition', name: 'Punjab Nutrition & Anemia Control' },
-    { id: 'ayush', name: 'Punjab Traditional & Alternative Medicine (AYUSH)' },
-    { id: 'rural', name: 'Punjab Rural & Tribal Health' },
-    { id: 'mental', name: 'Punjab Mental Health & Disability' }
+    { id: 'insurance', name: 'Maharashtra Health Insurance & Financial Protection' },
+    { id: 'maternal', name: 'Maharashtra Maternal & Child Health' },
+    { id: 'disease', name: 'Maharashtra Disease Control Programs' },
+    { id: 'primary', name: 'Maharashtra Primary & Preventive Healthcare' },
+    { id: 'nutrition', name: 'Maharashtra Nutrition & Anemia Control' },
+    { id: 'ayush', name: 'Maharashtra Traditional & Alternative Medicine (AYUSH)' },
+    { id: 'rural', name: 'Maharashtra Rural & Tribal Health' },
+    { id: 'mental', name: 'Maharashtra Mental Health & Disability' }
   ];
 
   const fetchSchemes = async () => {
@@ -49,9 +49,9 @@ export default function GovernmentSchemes() {
       <div className="max-w-full sm:max-w-6xl mx-auto">
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600 mb-4">
-            🏛️ Punjab Government Health Schemes
+            🏛️ Maharashtra Government Health Schemes
           </h1>
-          <p className="text-gray-700 dark:text-gray-300">Discover Punjab government healthcare schemes and programs for Nabha region</p>
+          <p className="text-gray-700 dark:text-gray-300">Discover Maharashtra government healthcare schemes and programs for Mumbai region</p>
         </div>
 
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-6 sm:mb-8">
