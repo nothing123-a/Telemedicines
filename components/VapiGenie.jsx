@@ -330,13 +330,19 @@ export default function VapiGenie() {
       console.log('🚀 Starting Vapi conversation...');
       setStatus('connecting');
       
-      // Start with assistant's built-in multilingual greeting
       const assistantId = process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID;
       console.log('🔍 Assistant ID check:', assistantId ? 'Found' : 'Missing');
       if (!assistantId) {
         throw new Error('VAPI assistant ID not found in environment variables');
       }
-      await vapiRef.current.start(assistantId);
+      
+      // Start with female voice override
+      await vapiRef.current.start(assistantId, {
+        voice: {
+          provider: 'openai',
+          voiceId: 'nova' // Female voice
+        }
+      });
       
     } catch (error) {
       console.error('❌ Failed to start Vapi conversation:', error);

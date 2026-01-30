@@ -217,16 +217,24 @@ export default function SimpleWorkingGenie() {
         utterance.volume = 1.0;
         utterance.lang = 'en-US';
         
-        // Get available voices
+        // Get available voices and prioritize female voices
         const voices = synthRef.current.getVoices();
-        const englishVoice = voices.find(voice => 
+        const femaleVoice = voices.find(voice => 
           voice.lang.startsWith('en') && 
-          (voice.name.includes('Google') || voice.name.includes('Microsoft') || voice.default)
+          (voice.name.toLowerCase().includes('female') || 
+           voice.name.toLowerCase().includes('woman') ||
+           voice.name.toLowerCase().includes('zira') ||
+           voice.name.toLowerCase().includes('hazel') ||
+           voice.name.toLowerCase().includes('samantha'))
+        ) || voices.find(voice => 
+          voice.lang.startsWith('en') && voice.gender === 'female'
+        ) || voices.find(voice => 
+          voice.lang.startsWith('en')
         );
         
-        if (englishVoice) {
-          utterance.voice = englishVoice;
-          console.log('🔊 Using voice:', englishVoice.name);
+        if (femaleVoice) {
+          utterance.voice = femaleVoice;
+          console.log('🔊 Using female voice:', femaleVoice.name);
         }
         
         utterance.onstart = () => console.log('🔊 TTS started');
